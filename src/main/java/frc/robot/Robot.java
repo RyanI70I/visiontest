@@ -15,10 +15,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DrivingSubsystem;
-import frc.robot.subsystems.EncoderSubsystem;
-
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -29,8 +26,7 @@ import frc.robot.subsystems.EncoderSubsystem;
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
   public static final DrivingSubsystem drivingSubsystem = new DrivingSubsystem();
-   public static final ArmSubsystem armSubsystem = new ArmSubsystem();
-	public static EncoderSubsystem encoderSubsystem = new EncoderSubsystem();
+
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   public static RobotContainer oi;
@@ -52,13 +48,11 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
-    Constants.leftEncoder.setDistancePerPulse(Constants.encoderDistance);
-		Constants.rightEncoder.setDistancePerPulse(Constants.encoderDistance);
+    
 		// Constants.rightEncoder.reset();
 		// Constants.leftEncoder.reset();
      drivingSubsystem.initDrive();
-	armSubsystem.initArm();
-  encoderSubsystem.initEncoder();
+     
 
 
 	
@@ -107,8 +101,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    SmartDashboard.putNumber("encoder value right", Math.abs(Constants.rightEncoder.get()));
-    SmartDashboard.putNumber("encoder value left",  Math.abs(Constants.leftEncoder.get()));
+  
 	//    // Assuming no wheel slip, the difference in encoder distances is proportional to the heading error
 	//    double error = Constants.leftEncoder.getDistance() - Constants.rightEncoder.getDistance();
 
@@ -137,6 +130,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    
     
     String gameData;
 gameData = DriverStation.getInstance().getGameSpecificMessage();
